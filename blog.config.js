@@ -1,6 +1,6 @@
 const BLOG = {
   title: 'Frankly',
-  author: 'Frank',
+  author: 'Yiran',
   email: 'ravenclawfrank@gmail.com',
   link: 'https://nobelium.vercel.app',
   description: 'feedId:81677917951548416+userId:59849779387098112',
