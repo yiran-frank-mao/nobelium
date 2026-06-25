@@ -96,7 +96,10 @@ const components = {
   )
 }
 
-const mapPageUrl = id => `https://www.notion.so/${id.replace(/-/g, '')}`
+const mapPageUrl = id => {
+  if (typeof id !== 'string' || !id.length) return '#'
+  return `https://www.notion.so/${id.replace(/-/g, '')}`
+}
 
 /**
  * Notion page renderer
