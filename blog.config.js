@@ -1,6 +1,6 @@
 const BLOG = {
-  title: 'Frankly',
-  author: 'Yiran',
+  title: "Yi's",
+  author: 'Yi',
   email: 'ravenclawfrank@gmail.com',
   link: 'https://blog.frankmao.me',
   description: "Yilin and Yiran's blog",
