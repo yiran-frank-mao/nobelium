@@ -118,7 +118,15 @@ export default function NotionRenderer (props) {
 
   // Mark block types to be custom rendered by appending a suffix
   if (props.recordMap) {
-    for (const { value: block } of Object.values(props.recordMap.block)) {
+    for (const [blockId, blockValue] of Object.entries(props.recordMap.block || {})) {
+      const block = blockValue?.value
+      if (!block) continue
+
+      // Some Notion API payloads omit block.value.id; react-notion-x assumes it exists.
+      if (!block.id) {
+        block.id = String(blockId)
+      }
+
       switch (block?.type) {
         case 'toggle':
           block.type += '_nobelium'
