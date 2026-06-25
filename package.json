@@ -20,8 +20,9 @@
     "postbuild": "next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
+    "@notionhq/client": "^5.22.0",
     "axios": "^1.6.1",
-    "canvas": "^2.11.2",
+    "canvas": "^3.2.3",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.10",
     "feed": "^4.2.2",
