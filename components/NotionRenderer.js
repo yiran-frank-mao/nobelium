@@ -116,15 +116,34 @@ export default function NotionRenderer (props) {
     'serif': FONTS_SERIF
   }[config.font]
 
-  // Mark block types to be custom rendered by appending a suffix
+  // Normalize recordMap to avoid crashes from malformed Notion API payloads.
   if (props.recordMap) {
-    for (const [blockId, blockValue] of Object.entries(props.recordMap.block || {})) {
+    const blockMap = props.recordMap.block || {}
+
+    for (const [blockId, blockValue] of Object.entries(blockMap)) {
+      if (!blockValue?.value) {
+        delete blockMap[blockId]
+      }
+    }
+
+    const validBlockIds = new Set(Object.keys(blockMap))
+
+    for (const [blockId, blockValue] of Object.entries(blockMap)) {
       const block = blockValue?.value
       if (!block) continue
 
       // Some Notion API payloads omit block.value.id; react-notion-x assumes it exists.
       if (!block.id) {
         block.id = String(blockId)
+      }
+
+      // Strip dangling block references which can cause runtime crashes in react-notion-x.
+      if (Array.isArray(block.content)) {
+        block.content = block.content.filter(childId => validBlockIds.has(String(childId)))
+      }
+      if (block.parent_table === 'block' && block.parent_id && !validBlockIds.has(String(block.parent_id))) {
+        delete block.parent_id
+        delete block.parent_table
       }
 
       switch (block?.type) {
