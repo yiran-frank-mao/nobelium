@@ -24,6 +24,17 @@ export default function Post (props) {
   const { post, blockMap, emailHash, fullWidth = false } = props
   const { dark } = useTheme()
 
+  // Prefer the post's `authors` (person property from Notion); fall back to the
+  // single author defined in blog.config.js for backwards compatibility.
+  const authors = (post.authors && post.authors.length)
+    ? post.authors
+    : [{
+        id: BLOG.author,
+        name: BLOG.author,
+        email: BLOG.email,
+        avatar: `https://gravatar.com/avatar/${emailHash}`
+      }]
+
   return (
     <article className={cn('flex flex-col', fullWidth ? 'md:px-24' : 'items-center')}>
       <h1 className={cn(
@@ -37,17 +48,20 @@ export default function Post (props) {
           'w-full flex mt-7 items-start text-gray-500 dark:text-gray-400',
           { 'max-w-2xl px-4': !fullWidth }
         )}>
-          <div className="flex mb-4">
-            <a href={BLOG.socialLink || '#'} className="flex">
-              <Image
-                alt={BLOG.author}
-                width={24}
-                height={24}
-                src={`https://gravatar.com/avatar/${emailHash}`}
-                className="rounded-full"
-              />
-              <p className="ml-2 md:block">{BLOG.author}</p>
-            </a>
+          <div className="flex flex-wrap items-center mb-4">
+            {authors.map((author, index) => (
+              <div key={author.id || author.name || index} className="flex items-center">
+                {index > 0 && <span className="block mx-1">&amp;</span>}
+                <Image
+                  alt={author.name}
+                  width={24}
+                  height={24}
+                  src={author.avatar}
+                  className="rounded-full"
+                />
+                <p className="ml-2 md:block">{author.name}</p>
+              </div>
+            ))}
             <span className="block">&nbsp;/&nbsp;</span>
           </div>
           <div className="mr-2 mb-4 md:ml-0">

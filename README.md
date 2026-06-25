@@ -62,6 +62,18 @@ Demo: [https://nobelium.vercel.app/](https://nobelium.vercel.app/)
   - `NOTION_ACCESS_TOKEN` (Optional, legacy): Browser `token_v2`. Only needed if you want to render private page blocks with `notion-client`; public pages do not need it.
 - **That's it!** Easy-peasy?
 
+### Multi-author posts (optional)
+
+Add a **`authors`** property of type **Person** to your Notion database. Each post will
+then display the people listed there (name + avatar) instead of the single author from
+`blog.config.js`. Avatars are fetched from [Gravatar](https://gravatar.com) using each
+author's email, so authors get a picture by registering that email on Gravatar (otherwise
+an auto-generated identicon is shown).
+
+> For emails to be available, your Notion integration needs the **"Read user information,
+> including email addresses"** capability (Integration settings → Capabilities). Posts with
+> no `authors` set fall back to the author defined in `blog.config.js`.
+
 <details><summary>Wait for a sec, what is Page ID？</summary>
   <img src="https://github.com/craigary/nobelium/blob/main/pageid.png?raw=true">
 </details>
