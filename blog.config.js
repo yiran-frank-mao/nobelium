@@ -25,7 +25,6 @@ const BLOG = {
   },
   notionPageId: process.env.NOTION_PAGE_ID, // DO NOT CHANGE THIS！！！
   notionApiKey: process.env.NOTION_API_KEY, // Official Notion integration API key
-  notionAccessToken: process.env.NOTION_ACCESS_TOKEN, // Optional legacy token_v2 for notion-client rendering of private pages
   analytics: {
     provider: '', // Currently we support Google Analytics and Ackee, please fill with 'ga' or 'ackee', leave it empty to disable it.
     ackeeConfig: {

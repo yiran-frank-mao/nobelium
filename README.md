@@ -52,15 +52,17 @@ Demo: [https://nobelium.vercel.app/](https://nobelium.vercel.app/)
 ## Quick Start
 
 - Star this repo 😉
-- Duplicate [this Notion template](https://craigary.notion.site/ee99f65a23ab44f8ac80270122ee8138), and share it to the public
+- Duplicate [this Notion template](https://craigary.notion.site/ee99f65a23ab44f8ac80270122ee8138)
 - [Fork](https://github.com/craigary/nobelium/fork) this project
 - Customize `blog.config.js`
 - _(Optional)_ Replace `favicon.svg`, and `favicon.ico` in `/public` folder with your own
+- Create a [Notion integration](https://www.notion.so/my-integrations) and **share your database with it** (the `•••` menu on the database → Connections → your integration). Your pages can stay **private** — they do not need to be shared to the web.
 - Deploy on [Vercel](https://vercel.com), set following environment variables：
   - `NOTION_PAGE_ID` (Required): Your Notion **database ID** (the database that stores posts/pages)
-  - `NOTION_API_KEY` (Required): Official Notion integration key (`secret_...`). Create an integration in Notion, then share your database with that integration.
-  - `NOTION_ACCESS_TOKEN` (Optional, legacy): Browser `token_v2`. Only needed if you want to render private page blocks with `notion-client`; public pages do not need it.
+  - `NOTION_API_KEY` (Required): Official Notion integration key (`secret_...` / `ntn_...`)
 - **That's it!** Easy-peasy?
+
+> Nobelium reads everything through the official Notion API (both the post list and the page content), so you only need the integration key plus the database ID — no public sharing and no `token_v2`.
 
 ### Multi-author posts (optional)
 

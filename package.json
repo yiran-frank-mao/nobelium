@@ -29,7 +29,6 @@
     "gitalk": "^1.8.0",
     "mermaid": "^10.6.1",
     "next": "^14.0.2",
-    "notion-client": "^6.16.0",
     "notion-utils": "^6.16.0",
     "preact": "^10.19.2",
     "prop-types": "^15.8.1",

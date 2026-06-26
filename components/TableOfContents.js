@@ -3,9 +3,12 @@ import { getPageTableOfContents } from 'notion-utils'
 import cn from 'classnames'
 
 export default function TableOfContents ({ blockMap, className, style }) {
-  const collectionId = Object.keys(blockMap.collection)[0]
-  const page = Object.values(blockMap.block).find(block => block.value.parent_id === collectionId).value
-  const nodes = getPageTableOfContents(page, blockMap)
+  // The page is the root block of the record map (first entry / the `page` block).
+  const pageEntry =
+    Object.values(blockMap.block).find(block => block.value?.type === 'page') ||
+    Object.values(blockMap.block)[0]
+  const page = pageEntry?.value
+  const nodes = page ? getPageTableOfContents(page, blockMap) : []
 
   if (!nodes.length) return null
 
