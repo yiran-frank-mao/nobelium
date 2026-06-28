@@ -55,7 +55,7 @@ Demo: [https://nobelium.vercel.app/](https://nobelium.vercel.app/)
 - Duplicate [this Notion template](https://craigary.notion.site/ee99f65a23ab44f8ac80270122ee8138), and share it to the public
 - [Fork](https://github.com/craigary/nobelium/fork) this project
 - Customize `blog.config.js`
-- _(Optional)_ Replace `favicon.svg`, and `favicon.ico` in `/public` folder with your own
+- _(Optional)_ Replace `favicon.png` (and `favicon.dark.png` for dark mode) in `/public` folder with your own
 - Deploy on [Vercel](https://vercel.com), set following environment variables：
   - `NOTION_PAGE_ID` (Required): Your Notion **database ID** (the database that stores posts/pages)
   - `NOTION_API_KEY` (Required): Official Notion integration key (`secret_...`). Create an integration in Notion, then share your database with that integration.
