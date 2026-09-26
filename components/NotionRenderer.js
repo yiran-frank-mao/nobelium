@@ -101,6 +101,13 @@ const mapPageUrl = id => {
   return `https://www.notion.so/${id.replace(/-/g, '')}`
 }
 
+// Official Notion API returns direct (S3 / external) image URLs, so pass them
+// through as-is instead of routing through the notion.so image proxy.
+const mapImageUrl = (url, _block) => {
+  if (typeof url !== 'string' || !url.length) return url
+  return url
+}
+
 /**
  * Notion page renderer
  *
@@ -139,6 +146,7 @@ export default function NotionRenderer (props) {
       <Renderer
         components={components}
         mapPageUrl={mapPageUrl}
+        mapImageUrl={mapImageUrl}
         {...props}
       />
     </>
