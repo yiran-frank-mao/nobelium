@@ -76,6 +76,10 @@ an auto-generated identicon is shown).
 > including email addresses"** capability (Integration settings → Capabilities). Posts with
 > no `authors` set fall back to the author defined in `blog.config.js`.
 
+The RSS feed (`/feed`) follows the same rule: every entry lists its own authors, and only
+falls back to the `blog.config.js` author when a post has none. Author emails are never
+published in the feed.
+
 <details><summary>Wait for a sec, what is Page ID？</summary>
   <img src="https://github.com/craigary/nobelium/blob/main/pageid.png?raw=true">
 </details>
