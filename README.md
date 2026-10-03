@@ -54,7 +54,7 @@ Demo: [https://nobelium.vercel.app/](https://nobelium.vercel.app/)
 - Star this repo 😉
 - Duplicate [this Notion template](https://craigary.notion.site/ee99f65a23ab44f8ac80270122ee8138)
 - [Fork](https://github.com/craigary/nobelium/fork) this project
-- Customize `blog.config.js`
+- Customize `blog.config.js` (or [set the options as environment variables](#configure-with-environment-variables))
 - _(Optional)_ Replace `favicon.png` (and `favicon.dark.png` for dark mode) in `/public` folder with your own
 - Create a [Notion integration](https://www.notion.so/my-integrations) and **share your database with it** (the `•••` menu on the database → Connections → your integration). Your pages can stay **private** — they do not need to be shared to the web.
 - Deploy on [Vercel](https://vercel.com), set following environment variables：
@@ -63,6 +63,48 @@ Demo: [https://nobelium.vercel.app/](https://nobelium.vercel.app/)
 - **That's it!** Easy-peasy?
 
 > Nobelium reads everything through the official Notion API (both the post list and the page content), so you only need the integration key plus the database ID — no public sharing and no `token_v2`.
+
+## Configure with environment variables
+
+`blog.config.js` holds the defaults, and **every** option in it can also be set with an
+environment variable — handy to keep secrets out of the repo, to reuse one fork for
+several blogs, or to tweak a deployment without a commit. Environment variables always
+win over the values in `blog.config.js`.
+
+The variable of an option is its path in the config, upper snake cased and prefixed with
+`NOBELIUM_`:
+
+| Option in `blog.config.js` | Environment variable |
+| --- | --- |
+| `title` | `NOBELIUM_TITLE` |
+| `postsPerPage` | `NOBELIUM_POSTS_PER_PAGE` |
+| `seo.keywords` | `NOBELIUM_SEO_KEYWORDS` |
+| `analytics.gaConfig.measurementId` | `NOBELIUM_ANALYTICS_GA_CONFIG_MEASUREMENT_ID` |
+| `comment.cusdisConfig.appId` | `NOBELIUM_COMMENT_CUSDIS_CONFIG_APP_ID` |
+
+Run `pnpm run config:env` to print the whole list with the values currently in effect.
+The prefix avoids clashes with variables your platform already defines (`PATH`, `LANG`…);
+the Notion ones keep working without it, so `NOTION_PAGE_ID` and `NOTION_API_KEY` are
+still valid names for `notionPageId` and `notionApiKey`.
+
+Values are parsed to match the type of the option:
+
+- **Strings** are used as they are: `NOBELIUM_TITLE="My blog"`. An empty value clears the
+  option, e.g. `NOBELIUM_COMMENT_PROVIDER=` disables comments.
+- **Numbers**: `NOBELIUM_POSTS_PER_PAGE=5`.
+- **Booleans** accept `true`/`false`, `1`/`0`, `yes`/`no`, `on`/`off`:
+  `NOBELIUM_SORT_BY_DATE=false`.
+- **Arrays** accept a comma separated list or a JSON array:
+  `NOBELIUM_SEO_KEYWORDS="Blog, Notion"` or `NOBELIUM_SEO_KEYWORDS='["Blog","Notion"]'`.
+- **Objects** accept a JSON object that is merged into the defaults, so you only list what
+  you change: `NOBELIUM_COMMENT='{"provider":"utterances","utterancesConfig":{"repo":"me/blog"}}'`.
+  A more specific variable still wins over the JSON.
+
+A malformed value (`NOBELIUM_POSTS_PER_PAGE=ten`) fails the build with an explicit error,
+and a variable that matches no option is reported as a warning.
+
+> `notionApiKey` and `notionAccessToken` are only read on the server and are never sent to
+> the browser.
 
 ### Multi-author posts (optional)
 
@@ -109,6 +151,9 @@ docker pull ghcr.io/craigary/nobelium:main
 # run with docker
 docker run -d --name nobelium -p 3000:3000 -e NOTION_PAGE_ID=${NOTION_PAGE_ID} ghcr.io/craigary/nobelium:main
 ```
+
+Any other option can be passed the same way, e.g. `-e NOBELIUM_TITLE="My blog"`. See
+[Configure with environment variables](#configure-with-environment-variables).
 
 ## Roadmap
 
