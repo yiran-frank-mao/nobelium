@@ -85,9 +85,22 @@ describe('applyEnvOverrides', () => {
     assert.deepEqual(config, { title: 'original', comment: { provider: 'cusdis' } })
   })
 
-  it('overrides strings verbatim, including empty ones', () => {
+  it('overrides strings, including with an empty value', () => {
     assert.equal(override({ NOBELIUM_TITLE: 'My blog' }).title, 'My blog')
     assert.equal(override({ NOBELIUM_COMMENT_PROVIDER: '' }).comment.provider, '')
+    assert.equal(override({ NOBELIUM_COMMENT_PROVIDER: '   ' }).comment.provider, '')
+  })
+
+  it('drops the whitespace and the quotes a value is pasted with', () => {
+    assert.equal(override({ NOBELIUM_TITLE: '  My blog  ' }).title, 'My blog')
+    assert.equal(override({ NOBELIUM_TITLE: 'My blog\r\n' }).title, 'My blog')
+    // Values are often copied straight out of `blog.config.js`.
+    assert.equal(override({ NOBELIUM_TITLE: "'My blog'" }).title, 'My blog')
+    assert.equal(override({ NOBELIUM_TITLE: '"My blog"' }).title, 'My blog')
+    assert.equal(override({ NOBELIUM_TITLE: "`My blog`" }).title, 'My blog')
+    assert.equal(override({ NOBELIUM_POSTS_PER_PAGE: "'25'" }).postsPerPage, 25)
+    assert.equal(override({ NOBELIUM_SORT_BY_DATE: '"false"' }).sortByDate, false)
+    assert.equal(override({ NOBELIUM_TITLE: "'It's mine'" }).title, "It's mine")
   })
 
   it('overrides nested options', () => {
@@ -123,10 +136,8 @@ describe('applyEnvOverrides', () => {
     assert.deepEqual(override({ NOBELIUM_SEO_KEYWORDS: 'a, b ,c' }).seo.keywords, ['a', 'b', 'c'])
     assert.deepEqual(override({ NOBELIUM_SEO_KEYWORDS: '["a","b, c"]' }).seo.keywords, ['a', 'b, c'])
     assert.deepEqual(override({ NOBELIUM_SEO_KEYWORDS: '' }).seo.keywords, [])
-    assert.throws(
-      () => override({ NOBELIUM_SEO_KEYWORDS: '[oops' }),
-      /NOBELIUM_SEO_KEYWORDS must be a JSON array/
-    )
+    // A JS array pasted as is, which is not valid JSON.
+    assert.deepEqual(override({ NOBELIUM_SEO_KEYWORDS: "['a', 'b']" }).seo.keywords, ['a', 'b'])
   })
 
   it('merges JSON objects into the defaults', () => {
@@ -136,7 +147,7 @@ describe('applyEnvOverrides', () => {
       cusdisConfig: { appId: 'merged', host: 'https://cusdis.com' }
     })
     assert.throws(
-      () => override({ NOBELIUM_SEO: '"nope"' }),
+      () => override({ NOBELIUM_SEO: 'nope' }),
       /NOBELIUM_SEO must be a JSON object/
     )
   })

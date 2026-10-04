@@ -89,8 +89,8 @@ still valid names for `notionPageId` and `notionApiKey`.
 
 Values are parsed to match the type of the option:
 
-- **Strings** are used as they are: `NOBELIUM_TITLE="My blog"`. An empty value clears the
-  option, e.g. `NOBELIUM_COMMENT_PROVIDER=` disables comments.
+- **Strings**: `NOBELIUM_TITLE="My blog"`. An empty value clears the option, e.g.
+  `NOBELIUM_COMMENT_PROVIDER=` disables comments.
 - **Numbers**: `NOBELIUM_POSTS_PER_PAGE=5`.
 - **Booleans** accept `true`/`false`, `1`/`0`, `yes`/`no`, `on`/`off`:
   `NOBELIUM_SORT_BY_DATE=false`.
@@ -100,8 +100,13 @@ Values are parsed to match the type of the option:
   you change: `NOBELIUM_COMMENT='{"provider":"utterances","utterancesConfig":{"repo":"me/blog"}}'`.
   A more specific variable still wins over the JSON.
 
+Surrounding whitespace and one layer of surrounding quotes are dropped from every value,
+so copying `'Australia/Canberra'` out of `blog.config.js` into a dashboard field sets the
+timezone to `Australia/Canberra` and not to a quote character followed by one.
+
 A malformed value (`NOBELIUM_POSTS_PER_PAGE=ten`) fails the build with an explicit error,
-and a variable that matches no option is reported as a warning.
+and a variable that matches no option is reported as a warning. A `timezone` the runtime
+does not know is reported as a warning too, and the system timezone is used instead.
 
 > `notionApiKey` and `notionAccessToken` are only read on the server and are never sent to
 > the browser.
