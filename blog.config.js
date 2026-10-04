@@ -1,3 +1,7 @@
+// These are the defaults: every option can also be set with an environment
+// variable, named after the option and prefixed with `NOBELIUM_`, e.g.
+// `NOBELIUM_TITLE` or `NOBELIUM_COMMENT_CUSDIS_CONFIG_APP_ID`. See the
+// "Configure with environment variables" section of the README.
 const BLOG = {
   title: "Yi's",
   author: 'Yi',

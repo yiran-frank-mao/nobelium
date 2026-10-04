@@ -18,6 +18,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "node --test \"test/**/*.test.js\"",
+    "config:env": "node scripts/list-config-env.js",
     "postbuild": "next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
