@@ -3,13 +3,13 @@
 // `NOBELIUM_TITLE` or `NOBELIUM_COMMENT_CUSDIS_CONFIG_APP_ID`. See the
 // "Configure with environment variables" section of the README.
 const BLOG = {
-  title: "Yi's",
-  author: 'Yi',
-  email: 'ravenclawfrank@gmail.com',
-  link: 'https://blog.frankmao.me',
-  description: "Yilin and Yiran's blog",
+  title: " ",
+  author: ' ',
+  email: ' ',
+  link: ' ',
+  description: " ",
   lang: 'en-US', // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES']
-  timezone: 'Australia/Canberra', // Your Notion posts' date will be interpreted as this timezone. See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for all options.
+  timezone: ' ', // Your Notion posts' date will be interpreted as this timezone. See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for all options.
   appearance: 'auto', // ['light', 'dark', 'auto'],
   font: 'serif', // ['sans-serif', 'serif']
   lightBackground: '#ffffff', // use hex value, don't forget '#' e.g #fffefc
@@ -22,7 +22,7 @@ const BLOG = {
   showArchive: true,
   autoCollapsedNavBar: false, // The automatically collapsed navigation bar
   ogImageGenerateURL: 'https://og-image-craigary.vercel.app', // The link to generate OG image, don't end with a slash
-  socialLink: 'https://x.com/YiranFrankM',
+  socialLink: ' ',
   seo: {
     keywords: ['Blog', 'Website', 'Notion'],
     googleSiteVerification: '' // Remove the value or replace it with your own google site verification code
@@ -43,7 +43,7 @@ const BLOG = {
   },
   comment: {
     // support provider: gitalk, utterances, cusdis
-    provider: 'cusdis', // leave it empty if you don't need any comment plugin
+    provider: ' ', // leave it empty if you don't need any comment plugin
     gitalkConfig: {
       repo: '', // The repository of store comments
       owner: '',
@@ -56,8 +56,8 @@ const BLOG = {
       repo: ''
     },
     cusdisConfig: {
-      appId: '4631a706-d1fb-48b9-946a-a45d382d0f97', // data-app-id
-      host: 'https://cusdis.com', // data-host, change this if you're using self-hosted version
+      appId: ' ', // data-app-id
+      host: ' ', // data-host, change this if you're using self-hosted version
       scriptSrc: 'https://cusdis.com/js/cusdis.es.js' // change this if you're using self-hosted version
     }
   },
